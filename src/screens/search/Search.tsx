@@ -15,7 +15,7 @@ const Search: FC<ISearch> = ({ posts }) => {
 	const { query } = useRouter();
 
 	return (
-		<Layout title="Блог">
+		<Layout title="Поиск">
 			<Container>
 				<Heading>Поиск{query.query !== "" && `: «${query.query}»`}</Heading>
 				<SearchForm />
