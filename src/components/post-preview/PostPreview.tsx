@@ -19,7 +19,7 @@ const PostPreview: FC<IPost> = ({ post }) => {
 				alt={post.title}
 			/>
 			<div className={styles.content}>
-				<h3 className={styles.title}>{post.title}</h3>
+				<div className={styles.title}>{post.title}</div>
 			</div>
 		</Link>
 	);
