@@ -19,7 +19,11 @@ const Search: FC<ISearch> = ({ posts }) => {
 			<Container>
 				<Heading>Поиск{query.query !== "" && `: «${query.query}»`}</Heading>
 				<SearchForm />
-				<PostsList posts={posts} />
+				{posts.length == 0 ? (
+					<div>Статей не найдено</div>
+				) : (
+					<PostsList posts={posts} />
+				)}
 			</Container>
 		</Layout>
 	);
