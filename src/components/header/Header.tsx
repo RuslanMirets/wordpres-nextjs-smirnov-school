@@ -13,6 +13,7 @@ interface IMenuLinks {
 const menuLinks: IMenuLinks[] = [
 	{ title: "Главная", url: "/" },
 	{ title: "Блог", url: "/blog" },
+	{ title: "Основы CG", url: "/cgb" },
 ];
 
 const Header: FC = () => {
