@@ -17,6 +17,7 @@ const PostPreview: FC<IPost> = ({ post }) => {
 				width={300}
 				height={300}
 				alt={post.title}
+				priority={true}
 			/>
 			<div className={styles.content}>
 				<div className={styles.title}>{post.title}</div>
