@@ -1,5 +1,5 @@
 import Blog from "@/src/screens/blog/Blog";
-import { getPosts } from "@/src/services/post.service";
+import { PostService } from "@/src/services/post.service";
 import { IPostPreview } from "@/src/types/post.interface";
 import { GetServerSideProps, NextPage } from "next";
 
@@ -12,7 +12,7 @@ const BlogPage: NextPage<IBlog> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const posts: IPostPreview[] = await getPosts();
+	const posts: IPostPreview[] = await PostService.getPosts();
 
 	return {
 		props: {

@@ -1,5 +1,5 @@
 import Post from "@/src/screens/post/Post";
-import { getPostBySlug, getPosts } from "@/src/services/post.service";
+import { PostService } from "@/src/services/post.service";
 import { IPost } from "@/src/types/post.interface";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
@@ -12,9 +12,8 @@ const PostPage: NextPage<IPostPage> = ({ post }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const posts = await getPosts();
+	const posts = await PostService.getPosts();
 
-	// создаём массив путей для каждого поста
 	const paths = posts.map((post) => ({
 		params: { slug: post.slug },
 	}));
@@ -28,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const slug = context.params?.slug as string;
-	const post = await getPostBySlug(slug);
+	const post = await PostService.getPostBySlug(slug);
 
 	return {
 		props: {

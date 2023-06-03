@@ -1,8 +1,9 @@
 import { fetchData } from "../api/wp-api";
 import { IPage } from "../types/page.interface";
 
-export async function getPageBySlug() {
-	const data = await fetchData(`
+export const PageService = {
+	async getPageBySlug() {
+		const data = await fetchData(`
     query getPageBySlug {
 			page(id: "cgb", idType: URI) {
         title
@@ -19,5 +20,6 @@ export async function getPageBySlug() {
       }
     } 	
   `);
-	return data.page as IPage;
-}
+		return data.page as IPage;
+	},
+};

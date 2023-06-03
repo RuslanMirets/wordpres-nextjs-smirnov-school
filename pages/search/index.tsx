@@ -1,5 +1,5 @@
 import Search from "@/src/screens/search/Search";
-import { getPostBySearch } from "@/src/services/post.service";
+import { PostService } from "@/src/services/post.service";
 import { IPostPreview } from "@/src/types/post.interface";
 import { GetServerSideProps, NextPage } from "next";
 
@@ -13,7 +13,7 @@ const SearchPage: NextPage<ISearch> = ({ posts }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const query = context.query.query as string;
-	const posts: IPostPreview[] = await getPostBySearch(query);
+	const posts: IPostPreview[] = await PostService.getPostBySearch(query);
 
 	return {
 		props: {

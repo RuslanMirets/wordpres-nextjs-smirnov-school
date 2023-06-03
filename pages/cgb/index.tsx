@@ -1,5 +1,5 @@
 import CGB from "@/src/screens/cgb/CGB";
-import { getPageBySlug } from "@/src/services/page.service";
+import { PageService } from "@/src/services/page.service";
 import { IPage } from "@/src/types/page.interface";
 import { GetServerSideProps, NextPage } from "next";
 
@@ -12,7 +12,7 @@ const CGBPage: NextPage<ICGBPage> = ({ page }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const page: IPage = await getPageBySlug();
+	const page: IPage = await PageService.getPageBySlug();
 
 	return {
 		props: {
