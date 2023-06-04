@@ -12,7 +12,7 @@ const PostPage: NextPage<IPostPage> = ({ post }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const posts = await PostService.getPosts();
+	const posts = await PostService.getAll();
 
 	const paths = posts.map((post) => ({
 		params: { slug: post.slug },
@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const slug = context.params?.slug as string;
-	const post = await PostService.getPostBySlug(slug);
+	const post = await PostService.getBySlug(slug);
 
 	return {
 		props: {

@@ -12,7 +12,7 @@ const BlogPage: NextPage<IBlog> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const posts: IPostPreview[] = await PostService.getPosts();
+	const posts: IPostPreview[] = await PostService.getAll();
 
 	return {
 		props: {

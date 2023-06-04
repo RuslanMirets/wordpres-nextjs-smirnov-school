@@ -2,9 +2,9 @@ import { fetchData } from "../api/wp-api";
 import { IPost, IPostPreview } from "../types/post.interface";
 
 export const PostService = {
-	async getPosts() {
+	async getAll() {
 		const data = await fetchData(`
-    query getPosts{
+    query getAll{
       posts(where: {categoryNotIn: "366"}) {
         nodes {
           slug
@@ -23,9 +23,9 @@ export const PostService = {
 		return data.posts.nodes as IPostPreview[];
 	},
 
-	async getPostBySlug(slug: string) {
+	async getBySlug(slug: string) {
 		const data = await fetchData(`
-    query getPostBySlug {
+    query getBySlug {
 			post(id: "${slug}", idType: SLUG) {
 				title
         content
@@ -35,9 +35,9 @@ export const PostService = {
 		return data.post as IPost;
 	},
 
-	async getPostBySearch(term: string) {
+	async getBySearch(term: string) {
 		const data = await fetchData(`
-    query getPosts{
+    query getBySearch{
       posts(where: {search: "${term}"}) {
         nodes {
           slug

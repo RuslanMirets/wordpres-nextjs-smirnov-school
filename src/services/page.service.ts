@@ -2,9 +2,9 @@ import { fetchData } from "../api/wp-api";
 import { IPage } from "../types/page.interface";
 
 export const PageService = {
-	async getPageBySlug() {
+	async getBySlug() {
 		const data = await fetchData(`
-    query getPageBySlug {
+    query getBySlug {
 			page(id: "cgb", idType: URI) {
         title
         rm {

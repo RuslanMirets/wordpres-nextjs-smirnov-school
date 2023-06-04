@@ -12,7 +12,7 @@ const CGBPage: NextPage<ICGBPage> = ({ page }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const page: IPage = await PageService.getPageBySlug();
+	const page: IPage = await PageService.getBySlug();
 
 	return {
 		props: {
