@@ -1,5 +1,6 @@
+import client from "@/src/apollo/client";
+import { PostApollo } from "@/src/apollo/post";
 import Blog from "@/src/screens/blog/Blog";
-import { PostService } from "@/src/services/post.service";
 import { IPostPreview } from "@/src/types/post.interface";
 import { GetServerSideProps, NextPage } from "next";
 
@@ -12,11 +13,11 @@ const BlogPage: NextPage<IBlog> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const posts: IPostPreview[] = await PostService.getAll();
+	const { data } = await client.query({ query: PostApollo.GET_ALL });
 
 	return {
 		props: {
-			posts,
+			posts: data.posts.nodes,
 		},
 	};
 };
