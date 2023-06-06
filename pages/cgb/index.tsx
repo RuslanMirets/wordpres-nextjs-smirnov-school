@@ -2,13 +2,13 @@ import client from "@/src/apollo/client";
 import { PageApollo } from "@/src/apollo/page";
 import CGB from "@/src/screens/cgb/CGB";
 import { IPage } from "@/src/types/page.interface";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps } from "next";
 
-interface ICGBPage {
+type Props = {
 	page: IPage;
-}
+};
 
-const CGBPage: NextPage<ICGBPage> = ({ page }) => {
+const CGBPage = ({ page }: Props) => {
 	return <CGB page={page} />;
 };
 

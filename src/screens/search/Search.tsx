@@ -1,17 +1,16 @@
 import Layout from "@/src/components/Layout";
-import Container from "@/src/components/container/Container";
 import SearchForm from "@/src/components/search/SearchForm";
-import { FC } from "react";
 import { IPostPreview } from "@/src/types/post.interface";
 import { useRouter } from "next/router";
 import PostsList from "@/src/components/posts-list/PostsList";
-import Heading from "@/src/components/heading/Heading";
+import Heading from "@/src/ui/heading/Heading";
+import Container from "@/src/ui/container/Container";
 
-interface ISearch {
+type Props = {
 	posts: IPostPreview[];
-}
+};
 
-const Search: FC<ISearch> = ({ posts }) => {
+const Search = ({ posts }: Props) => {
 	const { query } = useRouter();
 
 	return (

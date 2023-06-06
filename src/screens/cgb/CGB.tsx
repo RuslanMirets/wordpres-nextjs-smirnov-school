@@ -1,15 +1,14 @@
 import Layout from "@/src/components/Layout";
-import Container from "@/src/components/container/Container";
-import Heading from "@/src/components/heading/Heading";
+import Heading from "@/src/ui/heading/Heading";
 import { IPage } from "@/src/types/page.interface";
 import Image from "next/image";
-import { FC } from "react";
+import Container from "@/src/ui/container/Container";
 
-interface ICGB {
+type Props = {
 	page: IPage;
-}
+};
 
-const CGB: FC<ICGB> = ({ page }) => {
+const CGB = ({ page }: Props) => {
 	return (
 		<Layout title={page.title}>
 			<Container>

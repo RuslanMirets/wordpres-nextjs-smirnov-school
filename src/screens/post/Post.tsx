@@ -1,15 +1,14 @@
 import Layout from "@/src/components/Layout";
-import Container from "@/src/components/container/Container";
 import { IPost } from "@/src/types/post.interface";
-import { FC } from "react";
 import styles from "./Post.module.scss";
-import Heading from "@/src/components/heading/Heading";
+import Heading from "@/src/ui/heading/Heading";
+import Container from "@/src/ui/container/Container";
 
-interface IPostProps {
+type Props = {
 	post: IPost;
-}
+};
 
-const Post: FC<IPostProps> = ({ post }) => {
+const Post = ({ post }: Props) => {
 	return (
 		<Layout title={post.title}>
 			<Container>

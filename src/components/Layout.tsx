@@ -1,17 +1,17 @@
-import { FC, PropsWithChildren } from "react";
 import Meta from "./Meta";
 import { IMeta } from "../types/meta.interface";
 import Header from "./header/Header";
 import { Inter } from "next/font/google";
+import { PropsWithChildren } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Layout: FC<PropsWithChildren<IMeta>> = ({
+const Layout = ({
 	children,
 	title,
 	description,
 	image,
-}) => {
+}: PropsWithChildren<IMeta>) => {
 	return (
 		<>
 			<Meta title={title} description={description} image={image} />

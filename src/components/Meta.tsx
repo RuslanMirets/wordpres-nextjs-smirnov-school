@@ -1,10 +1,9 @@
 import Head from "next/head";
-import { FC } from "react";
 import { IMeta } from "../types/meta.interface";
 
 export const titleMerge = (title: string) => `${title} | Smirnov School`;
 
-const Meta: FC<IMeta> = ({ title, description }) => {
+const Meta = ({ title, description }: IMeta) => {
 	return (
 		<>
 			<Head>

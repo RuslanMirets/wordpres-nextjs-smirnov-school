@@ -1,9 +1,8 @@
 import Layout from "@/src/components/Layout";
-import Container from "@/src/components/container/Container";
-import Heading from "@/src/components/heading/Heading";
-import { FC } from "react";
+import Container from "@/src/ui/container/Container";
+import Heading from "@/src/ui/heading/Heading";
 
-const Home: FC = () => {
+const Home = () => {
 	return (
 		<Layout title="Главная">
 			<Container>

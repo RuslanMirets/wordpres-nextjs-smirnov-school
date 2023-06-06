@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { FC } from "react";
-import Container from "../container/Container";
 import styles from "./Header.module.scss";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import Container from "@/src/ui/container/Container";
 
 interface IMenuLinks {
 	title: string;
@@ -16,7 +15,7 @@ const menuLinks: IMenuLinks[] = [
 	{ title: "Основы CG", url: "/cgb" },
 ];
 
-const Header: FC = () => {
+const Header = () => {
 	const { pathname } = useRouter();
 
 	return (

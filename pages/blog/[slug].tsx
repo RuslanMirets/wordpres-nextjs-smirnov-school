@@ -2,13 +2,13 @@ import client from "@/src/apollo/client";
 import { PostApollo } from "@/src/apollo/post";
 import Post from "@/src/screens/post/Post";
 import { IPost, IPostPreview } from "@/src/types/post.interface";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-interface IPostPage {
+type Props = {
 	post: IPost;
-}
+};
 
-const PostPage: NextPage<IPostPage> = ({ post }) => {
+const PostPage = ({ post }: Props) => {
 	return <Post post={post} />;
 };
 

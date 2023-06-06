@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Loader.module.scss";
 
-const Loader: FC = () => {
+const Loader = () => {
 	const router = useRouter();
 	const [loading, setLoading] = useState<boolean>(false);
 

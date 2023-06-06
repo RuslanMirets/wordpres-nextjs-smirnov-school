@@ -1,8 +1,8 @@
-import { FC, FormEventHandler, useState } from "react";
+import { FormEventHandler, useState } from "react";
 import styles from "./SearchForm.module.scss";
 import { useRouter } from "next/router";
 
-const SearchForm: FC = () => {
+const SearchForm = () => {
 	const router = useRouter();
 
 	const [query, setQuery] = useState("");

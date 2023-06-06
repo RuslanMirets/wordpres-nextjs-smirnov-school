@@ -2,13 +2,13 @@ import client from "@/src/apollo/client";
 import { PostApollo } from "@/src/apollo/post";
 import Blog from "@/src/screens/blog/Blog";
 import { IPostPreview } from "@/src/types/post.interface";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps } from "next";
 
 interface IBlog {
 	posts: IPostPreview[];
 }
 
-const BlogPage: NextPage<IBlog> = ({ posts }) => {
+const BlogPage = ({ posts }: IBlog) => {
 	return <Blog posts={posts} />;
 };
 

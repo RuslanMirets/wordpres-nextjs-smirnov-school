@@ -1,13 +1,12 @@
-import { FC } from "react";
 import styles from "./PostsList.module.scss";
 import { IPostPreview } from "@/src/types/post.interface";
 import PostPreview from "../post-preview/PostPreview";
 
-interface IPostsList {
+type Props = {
 	posts: IPostPreview[];
-}
+};
 
-const PostsList: FC<IPostsList> = ({ posts }) => {
+const PostsList = ({ posts }: Props) => {
 	return (
 		<ul className={styles.root}>
 			{posts.map((post) => (

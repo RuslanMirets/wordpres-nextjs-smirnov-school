@@ -1,7 +1,6 @@
 import Home from "@/src/screens/home/Home";
-import { NextPage } from "next";
 
-const HomePage: NextPage = () => {
+const HomePage = () => {
 	return <Home />;
 };
 
