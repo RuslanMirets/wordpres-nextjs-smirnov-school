@@ -1,5 +1,5 @@
 import client from "@/src/apollo/client";
-import { PostApollo } from "@/src/apollo/post";
+import { PostApollo } from "@/src/apollo/post.apollo";
 import Post from "@/src/screens/post/Post";
 import { IPost, IPostPreview } from "@/src/types/post.interface";
 import { GetStaticPaths, GetStaticProps } from "next";

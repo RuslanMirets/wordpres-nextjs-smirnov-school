@@ -1,5 +1,5 @@
 import client from "@/src/apollo/client";
-import { PostApollo } from "@/src/apollo/post";
+import { PostApollo } from "@/src/apollo/post.apollo";
 import Blog from "@/src/screens/blog/Blog";
 import { IPostPreview } from "@/src/types/post.interface";
 import { GetServerSideProps } from "next";
