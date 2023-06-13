@@ -2,13 +2,12 @@ import styles from "./PostsList.module.scss";
 import { IPostPreview } from "@/src/types/post.interface";
 import PostPreview from "../post-preview/PostPreview";
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
-import { PostApollo } from "@/src/apollo/post.apollo";
 
-const PostsList = () => {
-	const { data } = useQuery(PostApollo.GET_ALL);
-	const posts: IPostPreview[] = data?.posts?.nodes || [];
+type Props = {
+	posts: IPostPreview[];
+};
 
+const PostsList = ({ posts }: Props) => {
 	const [query, setQuery] = useState("");
 
 	return (

@@ -27,8 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		variables: { search: `${query}` },
 	});
 
-	console.log(query);
-
 	return addApolloState(apolloClient, {
 		props: {},
 	});

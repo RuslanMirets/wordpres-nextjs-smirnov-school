@@ -5,13 +5,17 @@ import PostsList from "@/src/components/posts-list/PostsList";
 import Heading from "@/src/ui/heading/Heading";
 import Container from "@/src/ui/container/Container";
 
-const Blog = () => {
+type Props = {
+	posts: IPostPreview[];
+};
+
+const Blog = ({ posts }: Props) => {
 	return (
 		<Layout title="Блог">
 			<Container>
 				<Heading>Блог</Heading>
 				<SearchForm />
-				<PostsList />
+				<PostsList posts={posts} />
 			</Container>
 		</Layout>
 	);
