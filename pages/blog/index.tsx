@@ -1,25 +1,25 @@
-import client from "@/src/apollo/client";
+import { addApolloState, initializeApollo } from "@/src/apollo/apolloClient";
 import { PostApollo } from "@/src/apollo/post.apollo";
 import Blog from "@/src/screens/blog/Blog";
-import { IPostPreview } from "@/src/types/post.interface";
+import { useQuery } from "@apollo/client";
 import { GetStaticProps } from "next";
 
-interface IBlog {
-	posts: IPostPreview[];
-}
+const BlogPage = () => {
+	const { data } = useQuery(PostApollo.GET_ALL);
 
-const BlogPage = ({ posts }: IBlog) => {
+	const posts = data.posts.nodes || [];
+
 	return <Blog posts={posts} />;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-	const { data } = await client.query({ query: PostApollo.GET_ALL });
+	const apolloClient = initializeApollo();
 
-	return {
-		props: {
-			posts: data.posts.nodes,
-		},
-	};
+	await apolloClient.query({ query: PostApollo.GET_ALL });
+
+	return addApolloState(apolloClient, {
+		props: {},
+	});
 };
 
 export default BlogPage;
