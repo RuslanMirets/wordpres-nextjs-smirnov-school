@@ -21,8 +21,7 @@ const Search = ({ posts }: Props) => {
 				{posts.length == 0 ? (
 					<div>Статей не найдено</div>
 				) : (
-					// <PostsList posts={posts} />
-					<div>SEARCH</div>
+					<PostsList posts={posts} />
 				)}
 			</Container>
 		</Layout>
