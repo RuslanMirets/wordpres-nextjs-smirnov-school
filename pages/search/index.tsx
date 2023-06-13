@@ -1,35 +1,30 @@
-import { addApolloState, initializeApollo } from "@/src/apollo/apolloClient";
+import client from "@/src/apollo/client";
 import { PostApollo } from "@/src/apollo/post.apollo";
 import Search from "@/src/screens/search/Search";
-import { useQuery } from "@apollo/client";
+import { IPostPreview } from "@/src/types/post.interface";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 
-const SearchPage = () => {
-	const { query } = useRouter();
+type Props = {
+	posts: IPostPreview[];
+};
 
-	const { data } = useQuery(PostApollo.GET_BY_SEARCH, {
-		variables: { search: `${query.query}` },
-	});
-
-	const posts = data.posts.nodes || [];
-
+const SearchPage = ({ posts }: Props) => {
 	return <Search posts={posts} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const query = context.query.query as string;
 
-	const apolloClient = initializeApollo();
-
-	await apolloClient.query({
+	const { data } = await client.query({
 		query: PostApollo.GET_BY_SEARCH,
 		variables: { search: `${query}` },
 	});
 
-	return addApolloState(apolloClient, {
-		props: {},
-	});
+	return {
+		props: {
+			posts: data.posts.nodes,
+		},
+	};
 };
 
 export default SearchPage;

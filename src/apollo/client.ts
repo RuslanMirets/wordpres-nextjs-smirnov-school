@@ -6,7 +6,7 @@ const httpLink = new HttpLink({
 });
 
 const client = new ApolloClient({
-	ssrMode: true,
+	ssrMode: typeof window === "undefined",
 	cache: new InMemoryCache(),
 	link: httpLink,
 	connectToDevTools: true,
