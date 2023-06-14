@@ -3,12 +3,14 @@ import Heading from "@/src/ui/heading/Heading";
 import { IPage } from "@/src/types/page.interface";
 import Image from "next/image";
 import Container from "@/src/ui/container/Container";
+import { useQuery } from "@apollo/client";
+import { PageApollo } from "@/src/apollo/page.apollo";
 
-type Props = {
-	page: IPage;
-};
+const CGB = () => {
+	const { data } = useQuery(PageApollo.GET_CGB);
 
-const CGB = ({ page }: Props) => {
+	const page: IPage = data?.page;
+
 	return (
 		<Layout title={page.title}>
 			<Container>

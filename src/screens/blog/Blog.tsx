@@ -3,29 +3,24 @@ import SearchForm from "@/src/components/search/SearchForm";
 import PostsList from "@/src/components/posts-list/PostsList";
 import Heading from "@/src/ui/heading/Heading";
 import Container from "@/src/ui/container/Container";
-import { useQuery } from "@tanstack/react-query";
-import { PostService } from "@/src/services/post.service";
+import { useQuery } from "@apollo/client";
+import { PostApollo } from "@/src/apollo/post.apollo";
+import { IPostPreview } from "@/src/types/post.interface";
 
 const Blog = () => {
-	const { data, isLoading } = useQuery({
-		queryKey: ["posts"],
-		queryFn: PostService.getAll,
-	});
-	const posts = data?.data.posts.nodes || [];
+	const { data, loading } = useQuery(PostApollo.GET_ALL);
+
+	const posts: IPostPreview[] = data?.posts.nodes;
 
 	return (
 		<Layout title="Блог">
 			<Container>
 				<Heading>Блог</Heading>
-				{isLoading ? (
+				{loading ? (
 					<div>Loading...</div>
 				) : (
 					<>
 						<SearchForm />
-						<div className="mb-5">
-							<div>queryCount: {data.extensions.queryLog.queryCount}</div>
-							<div>totalTime: {data.extensions.queryLog.totalTime}</div>
-						</div>
 						<PostsList posts={posts} />
 					</>
 				)}

@@ -9,7 +9,7 @@ const nextConfig = {
 		GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 	},
 	images: {
-		domains: ["dev.smirnov.school", "lh3.googleusercontent.com"],
+		domains: ["dev.smirnov.school", "lh3.googleusercontent.com", "localhost"],
 	},
 };
 

@@ -10,7 +10,7 @@ const PostsList = ({ posts }: Props) => {
 	return (
 		<ul className={styles.root}>
 			{posts.map((post) => (
-				<li key={post.slug}>
+				<li key={post.databaseId}>
 					<PostPreview post={post} />
 				</li>
 			))}

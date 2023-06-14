@@ -5,13 +5,17 @@ import { useRouter } from "next/router";
 import PostsList from "@/src/components/posts-list/PostsList";
 import Heading from "@/src/ui/heading/Heading";
 import Container from "@/src/ui/container/Container";
+import { useQuery } from "@apollo/client";
+import { PostApollo } from "@/src/apollo/post.apollo";
 
-type Props = {
-	posts: IPostPreview[];
-};
-
-const Search = ({ posts }: Props) => {
+const Search = () => {
 	const { query } = useRouter();
+
+	const { data } = useQuery(PostApollo.GET_BY_SEARCH, {
+		variables: { search: `${query.query}` },
+	});
+
+	const posts: IPostPreview[] = data?.posts.nodes;
 
 	return (
 		<Layout title="Поиск">

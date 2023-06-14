@@ -1,4 +1,5 @@
 export interface IPostPreview {
+	databaseId: number;
 	slug: string;
 	title: string;
 	excertp: string;

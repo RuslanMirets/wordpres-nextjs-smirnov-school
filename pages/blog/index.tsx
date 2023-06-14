@@ -1,20 +1,19 @@
-import { withCSR } from "@/src/HOC/with-CSR";
+import { addApolloState, initializeApollo } from "@/src/apollo/apolloClient";
+import { PostApollo } from "@/src/apollo/post.apollo";
 import Blog from "@/src/screens/blog/Blog";
-import { PostService } from "@/src/services/post.service";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 
-export const getServerSideProps: GetServerSideProps = withCSR(async () => {
-	const queryClient = new QueryClient();
+export const getServerSideProps: GetServerSideProps = async () => {
+	const apolloClient = initializeApollo();
 
-	await queryClient.fetchQuery(["posts"], PostService.getAll);
+	await apolloClient.query({
+		query: PostApollo.GET_ALL,
+	});
 
-	return {
-		props: {
-			dehydratedState: dehydrate(queryClient),
-		},
-	};
-});
+	return addApolloState(apolloClient, {
+		props: {},
+	});
+};
 
 const BlogPage = () => {
 	return <Blog />;

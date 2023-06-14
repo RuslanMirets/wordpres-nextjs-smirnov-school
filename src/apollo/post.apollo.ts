@@ -5,6 +5,7 @@ export const PostApollo = {
 		query getAll {
 			posts(where: { categoryNotIn: "366" }) {
 				nodes {
+					databaseId
 					slug
 					title
 					excerpt
@@ -21,6 +22,7 @@ export const PostApollo = {
 	GET_BY_SLUG: gql`
 		query getBySlug($id: ID!) {
 			post(id: $id, idType: SLUG) {
+				databaseId
 				title
 				content
 			}
@@ -30,6 +32,7 @@ export const PostApollo = {
 		query getBySearch($search: String) {
 			posts(where: { search: $search }) {
 				nodes {
+					databaseId
 					slug
 					title
 					excerpt
