@@ -1,25 +1,26 @@
-import { addApolloState, initializeApollo } from "@/src/apollo/apolloClient";
+import client from "@/src/apollo/client";
 import { PostApollo } from "@/src/apollo/post.apollo";
 import Search from "@/src/screens/search/Search";
+import { PostPreviewType } from "@/src/types/post.interface";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (
 	ctx: GetServerSidePropsContext,
 ) => {
-	const apolloClient = initializeApollo();
-
-	await apolloClient.query({
+	const { data } = await client.query({
 		query: PostApollo.GET_BY_SEARCH,
 		variables: { search: `${ctx.query.query}` },
 	});
 
-	return addApolloState(apolloClient, {
-		props: {},
-	});
+	return {
+		props: {
+			posts: data.posts.nodes,
+		},
+	};
 };
 
-const SearchPage = () => {
-	return <Search />;
+const SearchPage = ({ posts }: PostPreviewType) => {
+	return <Search posts={posts} />;
 };
 
 export default SearchPage;

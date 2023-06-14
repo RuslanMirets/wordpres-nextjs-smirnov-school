@@ -1,22 +1,23 @@
-import { addApolloState, initializeApollo } from "@/src/apollo/apolloClient";
+import client from "@/src/apollo/client";
 import { PageApollo } from "@/src/apollo/page.apollo";
 import CGB from "@/src/screens/cgb/CGB";
+import { PageType } from "@/src/types/page.interface";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const apolloClient = initializeApollo();
-
-	await apolloClient.query({
+	const { data } = await client.query({
 		query: PageApollo.GET_CGB,
 	});
 
-	return addApolloState(apolloClient, {
-		props: {},
-	});
+	return {
+		props: {
+			page: data.page,
+		},
+	};
 };
 
-const CGBPage = () => {
-	return <CGB />;
+const CGBPage = ({ page }: PageType) => {
+	return <CGB page={page} />;
 };
 
 export default CGBPage;

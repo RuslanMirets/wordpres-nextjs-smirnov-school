@@ -10,6 +10,11 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: httpLink,
 	connectToDevTools: true,
+	defaultOptions: {
+		query: {
+			fetchPolicy: "cache-first",
+		},
+	},
 });
 
 export default client;

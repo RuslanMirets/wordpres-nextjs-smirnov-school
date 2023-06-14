@@ -3,27 +3,15 @@ import SearchForm from "@/src/components/search/SearchForm";
 import PostsList from "@/src/components/posts-list/PostsList";
 import Heading from "@/src/ui/heading/Heading";
 import Container from "@/src/ui/container/Container";
-import { useQuery } from "@apollo/client";
-import { PostApollo } from "@/src/apollo/post.apollo";
-import { IPostPreview } from "@/src/types/post.interface";
+import { PostPreviewType } from "@/src/types/post.interface";
 
-const Blog = () => {
-	const { data, loading } = useQuery(PostApollo.GET_ALL);
-
-	const posts: IPostPreview[] = data?.posts.nodes;
-
+const Blog = ({ posts }: PostPreviewType) => {
 	return (
 		<Layout title="Блог">
 			<Container>
 				<Heading>Блог</Heading>
-				{loading ? (
-					<div>Loading...</div>
-				) : (
-					<>
-						<SearchForm />
-						<PostsList posts={posts} />
-					</>
-				)}
+				<SearchForm />
+				<PostsList posts={posts} />
 			</Container>
 		</Layout>
 	);

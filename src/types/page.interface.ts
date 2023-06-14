@@ -6,3 +6,7 @@ export interface IPage {
 		workList: [{ workListName: string; workListImg: { sourceUrl: string } }];
 	};
 }
+
+export type PageType = {
+	page: IPage;
+};

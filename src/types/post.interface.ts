@@ -14,3 +14,11 @@ export interface IPostPreview {
 export interface IPost extends IPostPreview {
 	content: string;
 }
+
+export type PostPreviewType = {
+	posts: IPostPreview[];
+};
+
+export type PostType = {
+	post: IPost;
+};

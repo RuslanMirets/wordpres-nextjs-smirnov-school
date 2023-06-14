@@ -1,16 +1,10 @@
 import Layout from "@/src/components/Layout";
 import Heading from "@/src/ui/heading/Heading";
-import { IPage } from "@/src/types/page.interface";
+import { PageType } from "@/src/types/page.interface";
 import Image from "next/image";
 import Container from "@/src/ui/container/Container";
-import { useQuery } from "@apollo/client";
-import { PageApollo } from "@/src/apollo/page.apollo";
 
-const CGB = () => {
-	const { data } = useQuery(PageApollo.GET_CGB);
-
-	const page: IPage = data?.page;
-
+const CGB = ({ page }: PageType) => {
 	return (
 		<Layout title={page.title}>
 			<Container>
