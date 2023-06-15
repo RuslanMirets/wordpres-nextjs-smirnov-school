@@ -19,7 +19,11 @@ const AuthSocials = () => {
 					</button>
 				</li>
 				<li className={styles.listItem}>
-					<button className={styles.button} type="button">
+					<button
+						className={styles.button}
+						type="button"
+						onClick={() => signIn("yandex")}
+					>
 						<FaYandex size={30} />
 						Yandex
 					</button>

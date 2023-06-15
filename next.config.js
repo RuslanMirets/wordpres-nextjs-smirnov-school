@@ -7,6 +7,8 @@ const nextConfig = {
 		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 		GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
 		GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+		YANDEX_CLIENT_ID: process.env.YANDEX_CLIENT_ID,
+		YANDEX_CLIENT_SECRET: process.env.YANDEX_CLIENT_SECRET,
 	},
 	images: {
 		domains: ["dev.smirnov.school", "lh3.googleusercontent.com", "localhost"],

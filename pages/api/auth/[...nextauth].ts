@@ -1,5 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import YandexProvider from "next-auth/providers/yandex";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import client from "@/src/apollo/client";
@@ -32,6 +33,10 @@ export const authOptions: NextAuthOptions = {
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID!,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+		}),
+		YandexProvider({
+			clientId: process.env.YANDEX_CLIENT_ID!,
+			clientSecret: process.env.YANDEX_CLIENT_SECRET!,
 		}),
 	],
 	pages: {
