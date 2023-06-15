@@ -12,16 +12,19 @@ const ProfilePage = ({ user }: IUser) => {
 		<Layout title="Профиль">
 			<Container>
 				<Heading>Профиль</Heading>
-				<h2>
-					{user.firstName} {user.lastName}
-				</h2>
-				<div>{user.roles.nodes[0].name}</div>
-				<Image
-					src={user.avatar.url}
-					width={100}
-					height={100}
-					alt={user.firstName}
-				/>
+				<div>{user.name}</div>
+				<div>{user.email}</div>
+				{user.image && (
+					<Image src={user.image} width={100} height={100} alt={user.name} />
+				)}
+				{user.avatar && (
+					<Image
+						src={user.avatar.url}
+						width={100}
+						height={100}
+						alt={user.name}
+					/>
+				)}
 			</Container>
 		</Layout>
 	);
@@ -30,14 +33,14 @@ const ProfilePage = ({ user }: IUser) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getServerSession(context.req, context.res, authOptions);
 
-	// if (!session) {
-	// 	return {
-	// 		redirect: {
-	// 			destination: "/login",
-	// 			permanent: false,
-	// 		},
-	// 	};
-	// }
+	if (!session) {
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
 
 	return {
 		props: {

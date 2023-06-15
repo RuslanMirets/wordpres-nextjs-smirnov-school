@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import clsx from "clsx";
 import Container from "@/src/ui/container/Container";
 import { signOut, useSession } from "next-auth/react";
+import { Button } from "@chakra-ui/react";
 
 interface IMenuLinks {
 	title: string;
@@ -25,47 +26,37 @@ const Header = () => {
 		<header className={styles.root}>
 			<Container>
 				<div className={styles.container}>
+					<nav>
+						<ul className={styles.navList}>
+							{menuLinks.map((item) => (
+								<li key={item.url}>
+									<Link
+										className={clsx(pathname === item.url && styles.active)}
+										href={item.url}
+									>
+										{item.title}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</nav>
 					{status !== "loading" && (
-						<nav>
-							<ul className={styles.navList}>
-								{menuLinks.map((item) => (
-									<li key={item.url}>
-										<Link
-											className={clsx(pathname === item.url && styles.active)}
-											href={item.url}
-										>
-											{item.title}
-										</Link>
-									</li>
-								))}
-								{data && (
-									<li>
-										<Link
-											className={clsx(pathname === "/profile" && styles.active)}
-											href="/profile"
-										>
-											Профиль
-										</Link>
-									</li>
-								)}
-								{data ? (
-									<li>
-										<Link onClick={() => signOut()} href="#">
-											Выйти
-										</Link>
-									</li>
-								) : (
-									<li>
-										<Link
-											className={clsx(pathname === "/login" && styles.active)}
-											href="/login"
-										>
-											Войти
-										</Link>
-									</li>
-								)}
-							</ul>
-						</nav>
+						<div className={styles.auth}>
+							{data && (
+								<>
+									<div className={styles.user}>
+										Вы вошли как
+										<Link href="/profile">{data?.user?.name}</Link>
+									</div>
+									<Button onClick={() => signOut()}>Выйти</Button>
+								</>
+							)}
+							{!data && (
+								<Link href="/login">
+									<Button>Войти</Button>
+								</Link>
+							)}
+						</div>
 					)}
 				</div>
 			</Container>

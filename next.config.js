@@ -11,7 +11,12 @@ const nextConfig = {
 		YANDEX_CLIENT_SECRET: process.env.YANDEX_CLIENT_SECRET,
 	},
 	images: {
-		domains: ["dev.smirnov.school", "lh3.googleusercontent.com", "localhost"],
+		domains: [
+			"dev.smirnov.school",
+			"lh3.googleusercontent.com",
+			"localhost",
+			"avatars.yandex.net",
+		],
 	},
 };
 

@@ -7,16 +7,42 @@ import { BsCheck2, BsKey } from "react-icons/bs";
 import styles from "./LoginForm.module.scss";
 import { useState } from "react";
 import Link from "next/link";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import clsx from "clsx";
 
 const LoginForm = () => {
-	// const [passwordType, setPasswordType] = useState('')
 	const [passwordVisible, setPasswordVisible] = useState(false);
 
 	const togglePasswordVisible = () => {
 		setPasswordVisible(!passwordVisible);
 	};
+
+	const methods = useForm<FieldValues>({
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
+
+	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+		await signIn("credentials", {
+			email: data.email,
+			password: data.password,
+			redirect: false,
+		}).then((callback) => {
+			if (callback?.ok) {
+				console.log("Auth success");
+			}
+
+			if (callback?.error) {
+				console.log(callback.error);
+			}
+		});
+	};
+
 	return (
-		<form className={styles.root}>
+		<form className={styles.root} onSubmit={methods.handleSubmit(onSubmit)}>
 			<div className={styles.fields}>
 				<div className={styles.field}>
 					<AiOutlineUser className={styles.fieldIcon} />
@@ -24,6 +50,7 @@ const LoginForm = () => {
 						className={styles.fieldInput}
 						type="email"
 						placeholder="Адрес электронной почты"
+						{...methods.register("email")}
 					/>
 				</div>
 				<div className={styles.field}>
@@ -32,6 +59,7 @@ const LoginForm = () => {
 						className={styles.fieldInput}
 						type={passwordVisible == true ? "text" : "password"}
 						placeholder="Пароль"
+						{...methods.register("password")}
 					/>
 					<button
 						className={styles.fieldEye}
@@ -58,8 +86,14 @@ const LoginForm = () => {
 					Забыли пароль?
 				</Link>
 			</div>
-			<button className={styles.submit} type="submit">
-				Войти
+			<button
+				className={clsx(
+					styles.submit,
+					methods.formState.isSubmitting && styles.disabled,
+				)}
+				type="submit"
+			>
+				{methods.formState.isSubmitting ? "Вход..." : "Войти"}
 			</button>
 		</form>
 	);

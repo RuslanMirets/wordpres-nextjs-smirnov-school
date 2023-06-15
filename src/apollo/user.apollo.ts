@@ -7,6 +7,7 @@ export const UserApollo = {
 				user {
 					id
 					userId
+					name
 					firstName
 					lastName
 					username
