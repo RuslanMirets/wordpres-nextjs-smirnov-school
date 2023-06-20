@@ -12,26 +12,27 @@ export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
+const httpLink = new HttpLink({
+	uri: `${process.env.WORDPRESS_API_URL}/graphql`,
+	// uri: "https://swapi-graphql.netlify.app/.netlify/functions/index",
+	credentials: "same-origin",
+});
+
 function createApolloClient() {
 	return new ApolloClient({
 		ssrMode: typeof window === "undefined",
-		link: new HttpLink({
-			uri: `${process.env.WORDPRESS_API_URL}/graphql`,
-			credentials: "same-origin",
-		}),
+		link: httpLink,
 		cache: new InMemoryCache(),
 	});
 }
 
-export function initializeApollo(
-	initialState: NormalizedCacheObject | null = null,
-) {
+export function initializeApollo(initialState = null) {
 	const _apolloClient = apolloClient ?? createApolloClient();
 
 	if (initialState) {
 		const existingCache = _apolloClient.extract();
 
-		const data = merge(initialState, existingCache, {
+		const data = merge(existingCache, initialState, {
 			arrayMerge: (destinationArray, sourceArray) => [
 				...sourceArray,
 				...destinationArray.filter((d) =>
@@ -42,9 +43,7 @@ export function initializeApollo(
 
 		_apolloClient.cache.restore(data);
 	}
-
 	if (typeof window === "undefined") return _apolloClient;
-
 	if (!apolloClient) apolloClient = _apolloClient;
 
 	return _apolloClient;
