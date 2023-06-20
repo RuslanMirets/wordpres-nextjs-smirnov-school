@@ -3,6 +3,8 @@ import {
 	InMemoryCache,
 	NormalizedCacheObject,
 } from "@apollo/client";
+import { NextPageContext } from "next";
+import { AppContext } from "next/app";
 
 // import { NextPageContext } from "next";
 // declare module "next" {
@@ -10,6 +12,14 @@ import {
 // 		apolloState?: any;
 // 	}
 // }
+
+interface NextPageContextWithApollo extends NextPageContext {
+	apolloClient: ApolloClient<NormalizedCacheObject> | null;
+	apolloState: NormalizedCacheObject;
+	ctx: NextPageContextApp;
+}
+
+type NextPageContextApp = NextPageContextWithApollo & AppContext;
 
 const isServer = typeof window === "undefined";
 const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
