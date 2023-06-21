@@ -1,4 +1,5 @@
 import { PostApollo } from "@/src/apollo/post.apollo";
+import { withApollo } from "@/src/apollo/withApollo";
 import Layout from "@/src/components/Layout";
 import PostsList from "@/src/components/posts-list/PostsList";
 import { IPostPreview } from "@/src/types/post.interface";
@@ -23,4 +24,4 @@ const TestPage = () => {
 	);
 };
 
-export default TestPage;
+export default withApollo(TestPage);

@@ -9,12 +9,10 @@ export default function App({ Component, pageProps }: AppProps) {
 	const apolloClient = getApolloClient();
 
 	return (
-		<ApolloProvider client={apolloClient}>
-			<SessionProvider>
-				<ChakraProvider>
-					<Component {...pageProps} />
-				</ChakraProvider>
-			</SessionProvider>
-		</ApolloProvider>
+		<SessionProvider>
+			<ChakraProvider>
+				<Component {...pageProps} />
+			</ChakraProvider>
+		</SessionProvider>
 	);
 }
