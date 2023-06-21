@@ -1,11 +1,19 @@
+import { NEXT_DATA } from "next/dist/shared/lib/utils";
 import {
 	ApolloClient,
 	InMemoryCache,
 	NormalizedCacheObject,
 } from "@apollo/client";
 
+interface NextDataWithApolloState extends NEXT_DATA {
+	apolloState?: any;
+}
+
 const isServer = typeof window === "undefined";
-const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
+
+// const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
+const windowApolloState =
+	!isServer && (window.__NEXT_DATA__ as NextDataWithApolloState).apolloState;
 
 let CLIENT: ApolloClient<NormalizedCacheObject> | undefined;
 
