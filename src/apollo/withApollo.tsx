@@ -163,7 +163,7 @@ function createApolloClient(
 	_ctx?: NextPageContext,
 ) {
 	const linkOptions: HttpOptions = {
-		uri: "https://swapi-graphql.netlify.app/.netlify/functions/index",
+		uri: `${process.env.WORDPRESS_API_URL}/graphql`,
 		credentials: "same-origin", // 'include',
 		fetch: customFetch,
 	};
