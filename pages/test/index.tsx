@@ -32,8 +32,8 @@ const TestPage = () => {
 					<div>Loading...</div>
 				) : (
 					<ul>
-						{planets.map((item) => (
-							<li key={item.id}>{item.name}</li>
+						{planets?.map((item) => (
+							<li key={item?.id}>{item?.name}</li>
 						))}
 					</ul>
 				)}
