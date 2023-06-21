@@ -1,46 +1,87 @@
-import { NEXT_DATA } from "next/dist/shared/lib/utils";
+import { useMemo } from "react";
 import {
 	ApolloClient,
+	HttpLink,
 	InMemoryCache,
 	NormalizedCacheObject,
+	from,
 } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
+import { concatPagination } from "@apollo/client/utilities";
+import merge from "deepmerge";
+import isEqual from "lodash/isEqual";
 
-interface NextDataWithApolloState extends NEXT_DATA {
-	apolloState?: any;
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
+
+let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+	if (graphQLErrors)
+		graphQLErrors.forEach(({ message, locations, path }) =>
+			console.log(
+				`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+			),
+		);
+	if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+const httpLink = new HttpLink({
+	uri: `${process.env.WORDPRESS_API_URL}/graphql`,
+	credentials: "same-origin",
+});
+
+function createApolloClient() {
+	return new ApolloClient({
+		ssrMode: typeof window === "undefined",
+		link: from([errorLink, httpLink]),
+		cache: new InMemoryCache({
+			typePolicies: {
+				Query: {
+					fields: {
+						allPosts: concatPagination(),
+					},
+				},
+			},
+		}),
+	});
 }
 
-const isServer = typeof window === "undefined";
+export function initializeApollo(initialState = null) {
+	const _apolloClient = apolloClient ?? createApolloClient();
 
-// const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
-const windowApolloState =
-	!isServer && (window.__NEXT_DATA__ as NextDataWithApolloState).apolloState;
+	if (initialState) {
+		const existingCache = _apolloClient.extract();
 
-let CLIENT: ApolloClient<NormalizedCacheObject> | undefined;
-
-export function getApolloClient(forceNew?: any) {
-	if (!CLIENT || forceNew) {
-		CLIENT = new ApolloClient({
-			ssrMode: isServer,
-			uri: `${process.env.WORDPRESS_API_URL}/graphql`,
-			cache: new InMemoryCache().restore(windowApolloState || {}),
-
-			/**
-        // Default options to disable SSR for all queries.
-        defaultOptions: {
-          // Skip queries when server side rendering
-          // https://www.apollographql.com/docs/react/data/queries/#ssr
-          watchQuery: {
-            ssr: false
-          },
-          query: {
-            ssr: false
-          }
-          // Selectively enable specific queries like so:
-          // `useQuery(QUERY, { ssr: true });`
-        }
-      */
+		const data = merge(existingCache, initialState, {
+			arrayMerge: (destinationArray, sourceArray) => [
+				...sourceArray,
+				...destinationArray.filter((d) =>
+					sourceArray.every((s) => !isEqual(d, s)),
+				),
+			],
 		});
+
+		_apolloClient.cache.restore(data);
+	}
+	if (typeof window === "undefined") return _apolloClient;
+	if (!apolloClient) apolloClient = _apolloClient;
+
+	return _apolloClient;
+}
+
+export function addApolloState(
+	client: ApolloClient<NormalizedCacheObject>,
+	pageProps: any,
+) {
+	if (pageProps?.props) {
+		pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
 	}
 
-	return CLIENT;
+	return pageProps;
+}
+
+export function useApollo(pageProps: any) {
+	const state = pageProps[APOLLO_STATE_PROP_NAME];
+	const store = useMemo(() => initializeApollo(state), [state]);
+	return store;
 }

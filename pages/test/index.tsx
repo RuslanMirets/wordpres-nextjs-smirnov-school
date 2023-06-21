@@ -6,7 +6,7 @@ import { AllPlanetsDocument, AllPlanetsQuery } from "@/src/gql/graphql";
 import { IPostPreview } from "@/src/types/post.interface";
 import Container from "@/src/ui/container/Container";
 import Heading from "@/src/ui/heading/Heading";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GetServerSideProps } from "next";
 
 const TestPage = () => {

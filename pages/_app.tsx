@@ -3,16 +3,18 @@ import { ApolloProvider } from "@apollo/client";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-import { getApolloClient } from "@/src/apollo/apolloClient";
+import { useApollo } from "@/src/apollo/apolloClient";
 
 export default function App({ Component, pageProps }: AppProps) {
-	const apolloClient = getApolloClient();
+	const apolloClient = useApollo(pageProps);
 
 	return (
-		<SessionProvider>
-			<ChakraProvider>
-				<Component {...pageProps} />
-			</ChakraProvider>
-		</SessionProvider>
+		<ApolloProvider client={apolloClient}>
+			<SessionProvider>
+				<ChakraProvider>
+					<Component {...pageProps} />
+				</ChakraProvider>
+			</SessionProvider>
+		</ApolloProvider>
 	);
 }
