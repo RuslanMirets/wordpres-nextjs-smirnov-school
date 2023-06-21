@@ -20,7 +20,7 @@ const TestPage = () => {
 		<Layout title="Тест">
 			<Container>
 				<Heading>Тест</Heading>
-				{/* {loading ? <div>Loading...</div> : <PostsList posts={posts} />} */}
+				{loading ? <div>Loading...</div> : <PostsList posts={posts} />}
 
 				{/* {loading ? (
 					<div>Loading...</div>
